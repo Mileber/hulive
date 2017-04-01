@@ -118,14 +118,15 @@ def get_stream():
 @app.route('/huli/getStreamList/', methods=['POST'])
 def get_stream_list():
     # TODO:prefix 不知道是啥
-    stream_pre = ""
-    stream_list = hub.list(prefix=stream_pre, limit=2)
-    return stream_list
+    #stream_pre = ""
+    stream_list = hub.list(limit=2)
+    return stream_list.to_json()
 
 # 9.查询直播列表
 @app.route('/huli/getStreamListLive/', methods=['POST'])
 def get_stream_list_live():
-    return ""
+    stream_list_live = hub.list(liveonly=True)
+    return stream_list_live.to_json()
     
 # 10.查询流信息
 # 参数：key
@@ -147,11 +148,15 @@ def disable_stream():
     time = request.json['time']
     stream = hub.get(key)
     if(stream.disabled()):
-        return "stream is alreadly disabled"
+        return jsonify({
+            'msg' : "stream is alreadly disabled"
+        })
     else:
         stream.disable(int(time.time()) + time)
         #print "after call disable:", stream.refresh(), stream.disabled()
-        return "stream disable success"
+        return jsonify({
+            'msg' : "stream disable success"
+        })
 
 # 12.启用流
 # 参数：key
@@ -162,7 +167,9 @@ def enable_stream():
     key = request.json['key']
     stream = hub.get(key)
     stream.enable()
-    return "stream enable success"
+    return jsonify({
+            'msg' : "stream enable success"
+        })
 
 # 13.查询直播实时信息
 # 参数：key
@@ -173,7 +180,7 @@ def get_live_status():
     key = request.json['key']
     stream = hub.get(key)
     live_status = stream.status()
-    return live_status
+    return live_status.to_json()
 
 # 14.保存直播回放
 # 参数：key
@@ -185,7 +192,7 @@ def save_playback():
     stream = hub.get(key)
     now = int(time.time())
     playback = stream.saveas(start_second=now-300, fname=key+now+"_save.m3u8")
-    return playback
+    return playback.to_json()
 
 # 15.查询直播历史记录
 # 参数：key
@@ -197,7 +204,7 @@ def get_history_activity():
     stream = hub.get(key)
     now = int(time.time())
     history_activity = stream.history(start_second=now-86400)
-    return history_activity
+    return history_activity.to_json()
 
 
 # 16.开始
