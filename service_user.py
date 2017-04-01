@@ -75,7 +75,7 @@ def get_user():
         # 获取表成员属性
         ret = {
             'code' : 101,
-            'msg' : 'query success'
+            'msg' : 'query success',
             'id' : get.id,
             'name' : get.name,
             'stream_key' : get.stream_key,
@@ -128,7 +128,7 @@ def update_avatar():
     # with open('/home/ping/Documents/test.txt', 'a') as f:
         # f.write(s)
     
-    avatar_path = os.path.join('/home/projects/hulive/pic' + f.filename
+    avatar_path = os.path.join('/home/projects/hulive/pic' + f.filename)
 
     ret = {
         'code' : 101,
@@ -158,7 +158,7 @@ def login():
             # 获取表成员属性
             ret = {
                 'code' : 101,
-                'msg' : 'login success'
+                'msg' : 'login success',
                 'id' : get.id,
                 'name' : get.name,
                 'stream_key' : get.stream_key,
