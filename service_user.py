@@ -121,7 +121,7 @@ def update_user():
 # 上传头像
 @app.route('/liveUser/updateAvatar', methods=['POST'])
 def update_avatar():
-     f = request.files['avatar']
+    f = request.files['avatar']
     f.save(os.path.join('/home/projects/hulive/pic', f.filename))
     # Get str object from field of text
     # s = request.form['name']
@@ -167,7 +167,7 @@ def login():
             return jsonify({'ret':ret})
         else:
             ret = {
-                'code' : 502
+                'code' : 502,
                 'msg' : 'password error'
             }
             return jsonify({'ret':ret})
