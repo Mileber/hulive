@@ -120,13 +120,15 @@ def get_stream_list():
     # TODO:prefix 不知道是啥
     #stream_pre = ""
     stream_list = hub.list(limit=2)
-    return stream_list.to_json()
+    stream_list_json = json.dumps(stream_list)
+    return stream_list_json
 
 # 9.查询直播列表
 @app.route('/huli/getStreamListLive/', methods=['POST'])
 def get_stream_list_live():
     stream_list_live = hub.list(liveonly=True)
-    return stream_list_live.to_json()
+    stream_list_live_json = json.dumps(stream_list_live)
+    return stream_list_live_json
     
 # 10.查询流信息
 # 参数：key

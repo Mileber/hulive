@@ -44,7 +44,8 @@ curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/h
 7. 获得流
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getStream/' -d '{ "key":"15021057217"}'
 
-*8. 查询流列表*
+8. 查询流列表
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getStreamList/' -d '{ }'
 
 *9. 查询直播列表*
 
