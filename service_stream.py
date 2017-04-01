@@ -8,6 +8,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import make_response
+import json
 
 app = Flask(__name__)
 
@@ -115,7 +116,7 @@ def get_stream():
     return stream.to_json()
 
 # 8.查询流列表
-@app.route('/huli/getStreamList/', methods=['POST'])
+@app.route('/huli/getStreamList/', methods=['GET'])
 def get_stream_list():
     # TODO:prefix 不知道是啥
     #stream_pre = ""
@@ -124,7 +125,7 @@ def get_stream_list():
     return stream_list_json
 
 # 9.查询直播列表
-@app.route('/huli/getStreamListLive/', methods=['POST'])
+@app.route('/huli/getStreamListLive/', methods=['GET'])
 def get_stream_list_live():
     stream_list_live = hub.list(liveonly=True)
     stream_list_live_json = json.dumps(stream_list_live)
