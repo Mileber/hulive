@@ -18,7 +18,7 @@ class User(db.Model):
     is_up = db.Column(db.Boolean, nullable=False)
     avatar_path = db.Column(db.String(50))
 
-    def __init__(self, id, name, password, stream_key, phone, avatar_path):
+    def __init__(self, id, name, password, stream_key, phone, is_up, avatar_path):
         self.id = id
         self.name = name
         self.password = password
