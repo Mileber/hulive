@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 database_url = 'mysql://%s:%s@%s:%s/%s' % ("root", "123456", "localhost", 3306, "flask_test")
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-#app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 class User(db.Model):
