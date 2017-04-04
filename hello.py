@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template
 from flask import jsonify
 from model_user import db
-from service_user import app
+from service_live import app
 
 @app.route("/")
 def hello_world():

@@ -18,6 +18,7 @@ def insert_user():
     if not request.json:
         return "failed!", 400
     user_info = {
+        'id' : request.json['id']
         'name' : request.json['name'],
         'password' : request.json['password'],
         'stream_key' : request.json['stream_key'],
