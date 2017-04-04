@@ -1,7 +1,7 @@
 # 用户相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userInsert/' -d '{"id":1, "name":"user1", "password":"123456", "stream_key":"15021057217", "phone":"15021057217"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userInsert/' -d '{"id":1, "name":"user1", "password":"123456", "stream_key":"12345678910", "phone":"12345678910"}'
 
 2. 查询
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userQuery/' -d '{ "id":2}'
