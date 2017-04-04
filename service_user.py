@@ -25,7 +25,7 @@ def insert_user():
     }
 
     # 初始化user对象
-    usr = user(name=user_info['name'], password=user_info['password'], stream_key=user_info['stream_key'], phone=user_info['phone'], is_up=False, avatar_path="default")
+    usr = user(name=user_info['name'], password=user_info['password'], stream_key=user_info['stream_key'], phone=user_info['phone'], is_up=False)
 
     # TODO: 密码加密
 
@@ -52,7 +52,7 @@ def insert_user():
             'stream_key' : query_user.stream_key,
             'phone' : query_user.phone,
             'is_up' : query_user.is_up,
-            'avatar_path' : query_user.avatar_path
+            #'avatar_path' : query_user.avatar_path
         }
         return jsonify({'ret':ret})
 

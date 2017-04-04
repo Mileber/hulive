@@ -16,16 +16,16 @@ class User(db.Model):
     stream_key = db.Column(db.String(50), unique=True)
     phone = db.Column(db.String(15), unique=True)
     is_up = db.Column(db.Boolean, nullable=False)
-    avatar_path = db.Column(db.String(50))
+    #avatar_path = db.Column(db.String(50))
 
-    def __init__(self, id, name, password, stream_key, phone, is_up, avatar_path):
+    def __init__(self, id, name, password, stream_key, phone, is_up):
         self.id = id
         self.name = name
         self.password = password
         self.stream_key = stream_key
         self.phone = phone
         self.is_up = is_up
-        self.avatar_path = avatar_path
+        #self.avatar_path = avatar_path
     
     def __repr__(self):
         return '' % (self.id, self.name)
