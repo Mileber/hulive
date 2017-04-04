@@ -1,7 +1,7 @@
 # 用户相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userInsert/' -d '{"name":"user1", "password":"123456", "stream_key":"12345678910", "phone":"12345678910"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userInsert/' -d '{"id":1, "name":"user1", "password":"123456", "stream_key":"15021057217", "phone":"15021057217"}'
 
 2. 查询
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userQuery/' -d '{ "id":2}'
@@ -12,7 +12,7 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userU
 # 直播表相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamInsert/' -d '{"stream_key":"15021057217", "title":"hhhh", "level":1}'
+curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/streamInsert/' -d '{"stream_key":"15021057217", "title":"hhhh", "level":1}'
 
 2. 更新
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/streamUpdate/' -d '{"stream_key":"15021057217", "title":"233333", "level":1}'
@@ -24,7 +24,7 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/strea
 # 直播流相关
 
 1. 生成带授权凭证的 RTMP 推流地址
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getRTMPPublishURL/' -d '{ "key":"test"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getRTMPPublishURL/' -d '{ "key":"15021057217"}'
 
 2. 生成 RTMP 播放地址
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getRTMPPlayURL/' -d '{ "key":"15021057217"}'
@@ -39,13 +39,12 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getSnapshotPlayURL/' -d '{ "key":"15021057217"}'
 
 6. 创建流
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/createStream/' -d '{ "key":"test"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/createStream/' -d '{ "key":"15021057217"}'
 
 7. 获得流
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getStream/' -d '{ "key":"15021057217"}'
 
-8. 查询流列表
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getStreamList/' -d '{ }'
+*8. 查询流列表*
 
 *9. 查询直播列表*
 

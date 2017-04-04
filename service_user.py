@@ -9,11 +9,10 @@ from flask import make_response
 from model_user import db
 from model_user import User as user
 from model_user import Stream as stream
-from service_stream import app
+from serverApi import app
 
 # 插入新用户
-# TODO:头像
-@app.route('/liveUser/userInsert/', methods=['POST'])
+@app.route('/userInsert/', methods=['POST'])
 def insert_user():
     if not request.json:
         return "failed!", 400
@@ -26,7 +25,7 @@ def insert_user():
     }
 
     # 初始化user对象
-    usr = user(user_info['phone'],user_info['name'], user_info['password'], user_info['stream_key'], user_info['phone'])
+    usr = user(int(user_info['id']), user_info['name'], user_info['password'], user_info['stream_key'], user_info['phone'])
 
     # TODO: 密码加密
 
@@ -38,56 +37,24 @@ def insert_user():
 
     query_user = user.query.filter_by(name=user_info['name']).first()
     if query_user == None:
-        ret = {
-            'code' : 501,
-            'msg' : 'insert fail'
-        }
-        return jsonify({'ret':ret})
+        return "insert fail" 
     else:
-        ret = {
-            'code' : 101,
-            'msg' : 'insert success',
-            'id' : query_user.id,
-            'name' : query_user.name,
-            'password' : query_user.password,
-            'stream_key' : query_user.stream_key,
-            'phone' : query_user.phone,
-            #'is_up' : query_user.is_up,
-            #'avatar_path' : query_user.avatar_path
-        }
-        return jsonify({'ret':ret})
+        return "insert success"
 
 # 根据id查询用户
-# TODO:根据用户名查询
-@app.route('/liveUser/userQueryById/', methods=['POST'])
+@app.route('/userQuery/', methods=['POST'])
 def get_user():
     if not request.json:
         abort(400)
     get_id = request.json['id']
     get = user.query.filter_by(id = get_id).first()
 
-    if get == None:
-        ret = {
-            'code' : 501,
-            'msg' : 'user not found'
-        }
-        return jsonify({'ret':ret})
-    else:
-        # 获取表成员属性
-        ret = {
-            'code' : 101,
-            'msg' : 'query success',
-            'id' : get.id,
-            'name' : get.name,
-            'stream_key' : get.stream_key,
-            'phone' : get.phone,
-            'is_up' : get.is_up,
-            'avatar_path' : get.avatar_path
-        }
-        return jsonify({'ret':ret})
+    # 获取表成员属性
+    ret = 'id=%d,name=%s,stream_key=%s,phone=%s' % (get.id, get.name, get.stream_key, get.phone)
+    return ret
 
 # 更新用户(只允许更新 name, phone)
-@app.route('/liveUser/userUpdate/', methods=['POST'])
+@app.route('/userUpdate/', methods=['POST'])
 def update_user():
     if not request.json:
         abort(400)
@@ -118,59 +85,64 @@ def update_user():
             user_query.name = user_info['name']
             db.session.commit()
             return "name changed"
-
-# 上传头像
-@app.route('/liveUser/updateAvatar', methods=['POST'])
-def update_avatar():
-    f = request.files['avatar']
-    f.save(os.path.join('/home/projects/hulive/pic', f.filename))
-    # Get str object from field of text
-    # s = request.form['name']
-    # with open('/home/ping/Documents/test.txt', 'a') as f:
-        # f.write(s)
     
-    avatar_path = os.path.join('/home/projects/hulive/pic' + f.filename)
-
-    ret = {
-        'code' : 101,
-        'msg' : 'avatar upload success',
-        'avatar_path' : avatar_path
-    }
-    return jsonify({'ret' : ret})
-
-# 登录
-@app.route('/liveUser/login/', methods=['POST'])
-def login():
+    
+    
+    
+# 插入stream相关
+@app.route('/streamInsert/', methods=['POST'])
+def insert_stream():
     if not request.json:
-        abort(400)
-    get_phone = request.json['phone']
-    get_password = request.json['password']
-    get = user.query.filter_by(phone = get_phone).first()
+        return "failed", 400
 
-    if get == None:
-        # 未查询到返回错误码 501
-        ret = {
-            'code' : 501,
-            'msg' : "phone not found"
-        }
-        return jsonify({'ret':ret})
+    live_info = {
+        'stream_key' : request.json['stream_key'],
+        'title' : request.json['title'],
+        'level' : request.json['level']
+    }
+
+    live = stream(live_info['stream_key'], live_info['title'], live_info['level'])
+
+    db.session.add(live)
+    db.session.commit()
+
+    query_stream = stream.query.filter_by(stream_key=live_info['stream_key']).first()
+    if query_stream == None:
+        return "insert fail" 
     else:
-        if get.password == get_password:
-            # 获取表成员属性
-            ret = {
-                'code' : 101,
-                'msg' : 'login success',
-                'id' : get.id,
-                'name' : get.name,
-                'stream_key' : get.stream_key,
-                'phone' : get.phone
-            }
-            return jsonify({'ret':ret})
-        else:
-            ret = {
-                'code' : 502,
-                'msg' : 'password error'
-            }
-            return jsonify({'ret':ret})
+        return "insert success"
+
+# 更新
+@app.route('/streamUpdate/', methods=['POST'])
+def update_stream():
+    if not request.json:
+        return "failed", 400
+    
+    get_live = {
+        'stream_key' : request.json['stream_key'],
+        'title' : request.json['title'],
+        'level' : request.json['level']
+    }
+
+    stream_query = stream.query.filter_by(stream_key=user_info['stream_key']).first()
+    if stream_query == None:
+        return "stream key error"
+    else:
+        live = stream(live_info['stream_key'], live_info['title'], live_info['level'])
+        db.session.commit()
+        return "change stream info success"
+
+# 根据stream_key查询
+@app.route('/streamQuery/', methods=['POST'])
+def get_live_info():
+    if not request.json:
+        return "failed", 400
+    
+    stream_query = request.json['stream_key']
+    get = stream.query.filter_by(stream_key = stream_query).first()
+
+    # 获取表成员属性
+    ret = 'stream_key=%s, title=%s, level=%d' % (get.stream_key, get.title, get.level)
+    return ret
 
 

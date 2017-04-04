@@ -8,7 +8,6 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask import make_response
-import json
 
 app = Flask(__name__)
 
@@ -116,20 +115,17 @@ def get_stream():
     return stream.to_json()
 
 # 8.查询流列表
-@app.route('/huli/getStreamList/', methods=['GET'])
+@app.route('/huli/getStreamList/', methods=['POST'])
 def get_stream_list():
     # TODO:prefix 不知道是啥
-    #stream_pre = ""
-    stream_list = hub.list(limit=2)
-    stream_list_json = json.dumps(stream_list)
-    return stream_list_json
+    stream_pre = ""
+    stream_list = hub.list(prefix=stream_pre, limit=2)
+    return stream_list
 
 # 9.查询直播列表
-@app.route('/huli/getStreamListLive/', methods=['GET'])
+@app.route('/huli/getStreamListLive/', methods=['POST'])
 def get_stream_list_live():
-    stream_list_live = hub.list(liveonly=True)
-    stream_list_live_json = json.dumps(stream_list_live)
-    return stream_list_live_json
+    return ""
     
 # 10.查询流信息
 # 参数：key
@@ -151,15 +147,11 @@ def disable_stream():
     time = request.json['time']
     stream = hub.get(key)
     if(stream.disabled()):
-        return jsonify({
-            'msg' : "stream is alreadly disabled"
-        })
+        return "stream is alreadly disabled"
     else:
         stream.disable(int(time.time()) + time)
         #print "after call disable:", stream.refresh(), stream.disabled()
-        return jsonify({
-            'msg' : "stream disable success"
-        })
+        return "stream disable success"
 
 # 12.启用流
 # 参数：key
@@ -170,9 +162,7 @@ def enable_stream():
     key = request.json['key']
     stream = hub.get(key)
     stream.enable()
-    return jsonify({
-            'msg' : "stream enable success"
-        })
+    return "stream enable success"
 
 # 13.查询直播实时信息
 # 参数：key
@@ -183,7 +173,7 @@ def get_live_status():
     key = request.json['key']
     stream = hub.get(key)
     live_status = stream.status()
-    return live_status.to_json()
+    return live_status
 
 # 14.保存直播回放
 # 参数：key
@@ -195,7 +185,7 @@ def save_playback():
     stream = hub.get(key)
     now = int(time.time())
     playback = stream.saveas(start_second=now-300, fname=key+now+"_save.m3u8")
-    return playback.to_json()
+    return playback
 
 # 15.查询直播历史记录
 # 参数：key
@@ -207,7 +197,7 @@ def get_history_activity():
     stream = hub.get(key)
     now = int(time.time())
     history_activity = stream.history(start_second=now-86400)
-    return history_activity.to_json()
+    return history_activity
 
 
 # 16.开始

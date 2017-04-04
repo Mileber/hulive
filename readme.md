@@ -1,14 +1,3 @@
-# 环境配置
-1. pip install Flask
-2. pip install flask-sqlalchemy
-
-# 提示码
-- 正确时返回完整 json 格式数据，错误时返回相关错误码
-- 101 : 正确码
-- 501 : 未找到
-- 502 : 密码错误
-
-
 # 数据库说明
 ## 1. User表
 | Field      | Type        | Null | Key | Default | Extra          |
