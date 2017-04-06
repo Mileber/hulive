@@ -1,6 +1,7 @@
 # 环境配置
 1. pip install Flask
 2. pip install flask-sqlalchemy
+3. pip install pili2
 
 # 提示码
 - 正确时返回完整 json 格式数据，错误时返回相关错误码
