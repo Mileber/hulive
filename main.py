@@ -140,7 +140,6 @@ def insert_user():
         return jsonify({'ret':ret})
 
 # 根据id查询用户
-# TODO:根据用户名查询
 @app.route('/liveUser/userQueryById/', methods=['POST'])
 def get_user():
     if not request.json:
@@ -163,8 +162,58 @@ def get_user():
             'name' : get.name,
             'stream_key' : get.stream_key,
             'phone' : get.phone,
-            'is_up' : get.is_up,
-            'avatar_path' : get.avatar_path
+            #'is_up' : get.is_up,
+            #'avatar_path' : get.avatar_path
+        }
+        return jsonify({'ret':ret})
+
+# 根据stream_key查询用户
+@app.route('/liveUser/userQueryByKey', methods=['POST'])
+def get_user_by_key():
+    if not request.json:
+        abort(400)
+    get_key = request.json['stream_key']
+    result = User.query.filter_by(stream_key = get_key).first()
+
+    if result == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'user not found'
+        }
+        return jsonify({'ret':ret})
+    else:
+        ret = {
+            'code' : 101,
+            'msg' : 'query success',
+            'id' : result.id,
+            'name' : result.name,
+            'stream_key' : result.stream_key,
+            'phone' : result.phone
+        }
+        return jsonify({'ret':ret})
+
+# 根据name查询用户
+@app.route('/liveUser/userQueryByName', methods=['POST'])
+def get_user_by_name():
+    if not request.json:
+        abort(400)
+    get_name = request.json['name']
+    result = User.query.filter_by(name = get_name).first()
+
+    if result == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'user not found'
+        }
+        return jsonify({'ret':ret})
+    else:
+        ret = {
+            'code' : 101,
+            'msg' : 'query success',
+            'id' : result.id,
+            'name' : result.name,
+            'stream_key' : result.stream_key,
+            'phone' : result.phone
         }
         return jsonify({'ret':ret})
 
@@ -195,11 +244,27 @@ def update_user():
             else:
                 user_query.phone = user_info['phone']
                 db.session.commit()
-                return "phone changed"
+                ret = {
+                    'code' : 101,
+                    'msg' : 'update success',
+                    'id' : user_query.id,
+                    'name' : user_query.name,
+                    'stream_key' : user_query.stream_key,
+                    'phone' : user_query.phone
+                }
+                return jsonify({'ret':ret})
         else:
             user_query.name = user_info['name']
             db.session.commit()
-            return "name changed"
+            ret = {
+                'code' : 101,
+                'msg' : 'update success',
+                'id' : user_query.id,
+                'name' : user_query.name,
+                'stream_key' : user_query.stream_key,
+                'phone' : user_query.phone
+            }
+            return jsonify({'ret':ret})
 
 # 上传头像
 @app.route('/liveUser/updateAvatar', methods=['POST'])

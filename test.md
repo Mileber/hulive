@@ -36,7 +36,7 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getHDLPlayURL/' -d '{ "key":"15021057217"}'
 
 5. 生成直播封面地址
-curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getSnapshotPlayURL/' -d '{ "key":"15021057217"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getSnapshotPlayURL/' -d '{ "key":"test"}'
 
 6. 创建流
 curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/createStream/' -d '{ "key":"test"}'
