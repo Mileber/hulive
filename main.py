@@ -32,12 +32,12 @@ class User(db.Model):
     #is_up = db.Column(db.Boolean, nullable=False)
     #avatar_path = db.Column(db.String(50))
 
-    def __init__(self, id, name, password, stream_key, phone):
-        self.id = id
-        self.name = name
-        self.password = password
-        self.stream_key = stream_key
-        self.phone = phone
+    # def __init__(self, id, name, password, stream_key, phone):
+        # self.id = id
+        # self.name = name
+        # self.password = password
+        # self.stream_key = stream_key
+        # self.phone = phone
         #self.is_up = is_up
         #self.avatar_path = avatar_path
     
@@ -96,7 +96,6 @@ def insert_user():
     if not request.json:
         return "failed!", 400
     user_info = {
-        'id' : request.json['id'],
         'name' : request.json['name'],
         'password' : request.json['password'],
         'stream_key' : request.json['stream_key'],
@@ -104,7 +103,12 @@ def insert_user():
     }
 
     # 初始化user对象
-    usr = User(int(user_info['id']),user_info['name'], user_info['password'], user_info['stream_key'], user_info['phone'])
+    #usr = User(int(user_info['id']),user_info['name'], user_info['password'], user_info['stream_key'], user_info['phone'])
+    usr = User()
+    usr.name = user_info['name']
+    usr.password = user_info['password']
+    usr.stream_key = user_info['stream_key']
+    usr.phone = user_info['phone']
 
     # TODO: 密码加密
 
