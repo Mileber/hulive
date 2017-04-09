@@ -430,7 +430,7 @@ def get_follow_list():
 # 查询粉丝列表
 # 参数：user_id
 @app.route('/huli/getFansList/', methods=['POST'])
-def get_fans_list:
+def get_fans_list():
     if not request.json:
         abort(400)
 
@@ -456,7 +456,7 @@ def get_fans_list:
 # 新增关注
 # 参数：from_id, to_id
 @app.route('/huli/insertFollow/', methods=['POST'])
-def insert_follow:
+def insert_follow():
     if not request.json:
         abort(400)
     follow = {
@@ -490,7 +490,7 @@ def insert_follow:
 # 取消关注
 # 参数：from_id, to_id
 @app.route('/huli/deleteFollow/', methods=['POST'])
-def delete_follow:
+def delete_follow():
     if not request.json:
         abort(400)
     get = {
