@@ -24,7 +24,7 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/strea
 # follow表相关
 
 1. 查询关注列表及人数
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getFollow/' -d '{ "user_id":8}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getFollowList/' -d '{ "user_id":8}'
 
 # 直播流相关
 

@@ -42,7 +42,7 @@ class User(db.Model):
         #self.avatar_path = avatar_path
     
     def __repr__(self):
-        return '%s, %s' % (self.id, self.name)
+        return '{"id":%d, "name":%s}' % (self.id, self.name)
 
 class Stream(db.Model):
     stream_key = db.Column(db.String(50), primary_key=True)
@@ -55,7 +55,7 @@ class Stream(db.Model):
         self.level = level
 
     def __repr__(self):
-        return '%s, %s' % (self.stream_key, self.title)
+        return '{"stream_key":%s, "title":%s, "level":%d}' % (self.stream_key, self.title, self.level)
 
 class Follow(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -63,7 +63,7 @@ class Follow(db.Model):
     to_user_id = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return '%s, %s' % (self.from_user_id, self.to_user_id)
+        return '{"id":%d, "from_user_id":%d, "to_user_id":%d}' % (self.id, self.from_user_id, self.to_user_id)
 
 class Gift(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
