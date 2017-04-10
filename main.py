@@ -23,6 +23,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db = SQLAlchemy(app)
 
+class Serializer(object):
+    
+    def serialize(self):
+        return {c: getattr(self, c) for c in inspect(self).attrs.keys()}
+
+    @staticmethod
+    def serialize_list(l):
+        return [m.serialize() for m in l]
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(20), nullable=False, unique=True)
@@ -65,12 +74,9 @@ class Follow(db.Model):
     def __repr__(self):
         return '{"id":%d, "from_user_id":%d, "to_user_id":%d}' % (self.id, self.from_user_id, self.to_user_id)
 
-    def to_json(self):
-        return {
-            'id' : self.id,
-            'from_user_id' : self.from_user_id,
-            'to_user_id' : self.to_user_id
-        }
+    def serialize(self):
+        d = Serializer.serialize(self)
+        return d
 
 class Gift(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -435,7 +441,7 @@ def get_follow_list():
             'list' : follow_list
         }
         '''
-        return jsonify(list=[i.to_json for i in follow_list])
+        return jsonify(Follow.serialize_list(follow_list))
 
 # 查询粉丝列表
 # 参数：user_id
