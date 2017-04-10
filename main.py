@@ -427,7 +427,7 @@ def get_follow_list():
         }
         return jsonify({'ret':ret})
     else:
-        for item in follow_list:
+
             
         ret = {
             'code' : 101,
