@@ -65,6 +65,13 @@ class Follow(db.Model):
     def __repr__(self):
         return '{"id":%d, "from_user_id":%d, "to_user_id":%d}' % (self.id, self.from_user_id, self.to_user_id)
 
+    def to_json(self):
+        return {
+            'id' : self.id,
+            'from_user_id' : self.from_user_id,
+            'to_user_id' : self.to_user_id
+        }
+
 class Gift(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(20), nullable=False)
@@ -423,27 +430,9 @@ def get_follow_list():
             'code' : 101,
             'msg' : 'query follow list success',
             'num' : follow_num,
-            'list' : follow_list
+            'list' : follow_list.to_json()
         }
         return jsonify({'ret':ret})
-
-@app.route('/huli/getFollow/', methods=['POST'])
-def get_follow():
-    if not request.json:
-        abort(400)
-    
-    user_id = request.json['user_id']
-    follow_list = Follow.query.filter_by(from_user_id = user_id).all()
-    follow_num = Follow.query.filter_by(from_user_id = user_id).count()
-
-    if follow_list == None:
-        ret = {
-            'code' : 501,
-            'msg' : 'follow list not found'
-        }
-        return jsonify({'ret':ret})
-    else:
-        return follow_list
 
 # 查询粉丝列表
 # 参数：user_id
