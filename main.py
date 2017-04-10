@@ -443,7 +443,7 @@ def get_follow_list():
         }
         '''
         
-        return json.dumps(follow_list)
+        return json.dumps({"list":follow_list})
 
 # 查询粉丝列表
 # 参数：user_id
