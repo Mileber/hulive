@@ -442,8 +442,9 @@ def get_follow_list():
             'list' : follow_list
         }
         '''
-        return follow_list
-
+        
+        return ''.join(follow_list)
+        
 # 查询粉丝列表
 # 参数：user_id
 @app.route('/huli/getFansList/', methods=['POST'])
