@@ -427,15 +427,15 @@ def get_follow_list():
         }
         return jsonify({'ret':ret})
     else:
-
-            
+        '''
         ret = {
             'code' : 101,
             'msg' : 'query follow list success',
             'num' : follow_num,
             'list' : follow_list
         }
-        return jsonify({'ret':ret})
+        '''
+        return jsonify(list=[i.to_json for i in follow_list])
 
 # 查询粉丝列表
 # 参数：user_id
