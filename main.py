@@ -453,6 +453,32 @@ def get_fans_list():
         }
         return jsonify({'ret':ret})
 
+# 查询from_id是否关注to_id
+# 参数：from_id, to_id
+@app.route('/huli/isFollow/', methods=['POST'])
+def is_follow():
+    if not request.json:
+        abort(400)
+    
+    from_id = request.json['from_id']
+    to_id = request.json['to_id']
+    result = Follow.query.filter_by(from_user_id=from_id, to_user_id=to_id).first()
+
+    if result == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'not followed'
+        }
+        return jsonify({'ret':ret})
+    else:
+        ret = {
+            'code' : 101,
+            'msg' : 'following',
+            'from_id' : result.from_user_id,
+            'to_id' : result.to_user_id
+        }
+        return jsonify({'ret':ret})
+
 # 新增关注
 # 参数：from_id, to_id
 @app.route('/huli/insertFollow/', methods=['POST'])
