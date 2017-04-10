@@ -16,6 +16,7 @@ from info import database_url
 from info import accessKey
 from info import secretKey
 from info import hubName
+from sqlalchemy.inspection import inspect
 
 app = Flask(__name__)
 
