@@ -416,7 +416,8 @@ def get_follow_list():
         abort(400)
     
     user_id = request.json['user_id']
-    follow_list = Follow.query.filter_by(from_user_id = user_id).all().to_json()
+    follow_list = Follow.query.filter_by(from_user_id = user_id).all()
+    print follow_list
     follow_num = Follow.query.filter_by(from_user_id = user_id).count()
 
     if follow_list == None:
@@ -426,6 +427,8 @@ def get_follow_list():
         }
         return jsonify({'ret':ret})
     else:
+        for item in follow_list:
+            
         ret = {
             'code' : 101,
             'msg' : 'query follow list success',
