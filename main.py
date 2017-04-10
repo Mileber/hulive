@@ -442,7 +442,7 @@ def get_follow_list():
             'list' : follow_list
         }
         '''
-        return jsonify(Follow.serialize_list(follow_list))
+        return ""
 
 # 查询粉丝列表
 # 参数：user_id
