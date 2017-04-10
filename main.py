@@ -498,7 +498,7 @@ def insert_follow():
 
     db.session.commit()
 
-    query_follow = Follow.query.filter_by(and_(from_user_id=follow['from_id'], to_user_id=follow['to_id'])).first()
+    query_follow = Follow.query.filter_by(from_user_id=follow['from_id'], to_user_id=follow['to_id']).first()
     if query_follow == None:
         ret = {
             'code' : 501,
@@ -526,7 +526,7 @@ def delete_follow():
         'to_id' : request.json['to_id']
     }
 
-    query_follow = Follow.query.filter_by(and_(from_user_id=get['from_id'], to_user_id=get['to_id'])).first()
+    query_follow = Follow.query.filter_by(from_user_id=get['from_id'], to_user_id=get['to_id']).first()
 
     if query_follow == None:
         ret = {
@@ -540,7 +540,7 @@ def delete_follow():
         follow_item.to_user_id = get["to_id"]
         db.session.delete(follow_item)
         db.session.commit()
-        query_follow_new = Follow.query.filter_by(and_(from_user_id=get['from_id'], to_user_id=get['to_id'])).first()
+        query_follow_new = Follow.query.filter_by(from_user_id=get['from_id'], to_user_id=get['to_id']).first()
         if query_follow_new == None:
             ret = {
                 'code' : 101,
