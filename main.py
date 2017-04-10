@@ -427,6 +427,24 @@ def get_follow_list():
         }
         return jsonify({'ret':ret})
 
+@app.route('/huli/getFollow/', methods=['POST'])
+def get_follow():
+    if not request.json:
+        abort(400)
+    
+    user_id = request.json['user_id']
+    follow_list = Follow.query.filter_by(from_user_id = user_id).all()
+    follow_num = Follow.query.filter_by(from_user_id = user_id).count()
+
+    if follow_list == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'follow list not found'
+        }
+        return jsonify({'ret':ret})
+    else:
+        return follow_list
+        
 # 查询粉丝列表
 # 参数：user_id
 @app.route('/huli/getFansList/', methods=['POST'])

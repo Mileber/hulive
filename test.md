@@ -21,6 +21,11 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/strea
 3. 查询
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/streamQuery/' -d '{ "stream_key":"15021057217"}'
 
+# follow表相关
+
+1. 查询关注列表及人数
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getFollowList/' -d '{ "user_id":8}'
+
 # 直播流相关
 
 1. 生成带授权凭证的 RTMP 推流地址
