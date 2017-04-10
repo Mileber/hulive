@@ -408,7 +408,7 @@ def get_live_info():
 
 # 查询关注数
 # 参数：user_id
-@app.route('/huli/getFollowNum', methods=['POST'])
+@app.route('/huli/getFollowNum/', methods=['POST'])
 def get_follow_num():
     if not request.json:
         abort(400)
@@ -451,7 +451,7 @@ def get_follow_list():
 
 # 查询粉丝数
 # 参数：user_id
-@app.route('/huli/getFansNum', methods=['POST'])
+@app.route('/huli/getFansNum/', methods=['POST'])
 def get_fans_num():
     if not request.json:
         abort(400)
