@@ -442,7 +442,7 @@ def get_follow_list():
             'list' : follow_list
         }
         '''
-        return ""
+        return follow_list
 
 # 查询粉丝列表
 # 参数：user_id
