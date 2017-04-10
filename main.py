@@ -42,7 +42,7 @@ class User(db.Model):
         #self.avatar_path = avatar_path
     
     def __repr__(self):
-        return '' % (self.id, self.name)
+        return '%s, %s' % (self.id, self.name)
 
 class Stream(db.Model):
     stream_key = db.Column(db.String(50), primary_key=True)
@@ -55,7 +55,7 @@ class Stream(db.Model):
         self.level = level
 
     def __repr__(self):
-        return '' % (self.stream_key, self.title)
+        return '%s, %s' % (self.stream_key, self.title)
 
 class Follow(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -63,7 +63,7 @@ class Follow(db.Model):
     to_user_id = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return '' % (self.from_user_id, self.to_user_id)
+        return '%s, %s' % (self.from_user_id, self.to_user_id)
 
 class Gift(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -71,7 +71,7 @@ class Gift(db.Model):
     value = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return '' % (self.name, self.value)
+        return '%s, %s' % (self.name, self.value)
 
 db.create_all()
 
@@ -444,7 +444,7 @@ def get_follow():
         return jsonify({'ret':ret})
     else:
         return follow_list
-        
+
 # 查询粉丝列表
 # 参数：user_id
 @app.route('/huli/getFansList/', methods=['POST'])
