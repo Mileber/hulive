@@ -406,10 +406,10 @@ def get_live_info():
         'ret' : ret
     })
 
-# 查询粉丝数
+# 查询关注数
 # 参数：user_id
 @app.route('/huli/getFollowNum', methods=['POST'])
-def get_fans_num():
+def get_follow_num():
     if not request.json:
         abort(400)
     
