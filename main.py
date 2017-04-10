@@ -89,6 +89,18 @@ class Gift(db.Model):
 
 db.create_all()
 
+class MyJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Follow):
+            return {
+                   'id'     : obj.id,
+                   'from_id' : obj.from_user_id,
+                   'to_id'     : obj.to_user_id
+            }
+        return super(MyJSONEncoder, self).default(obj)
+
+app.json_encoder = MyJSONEncoder
+
 @app.route("/")
 def hello_world():
     return 'Hello World'
