@@ -865,9 +865,6 @@ def main():
 
 @app.route('/huli/getLiveCount/', methods=['GET'])
 def get_live_count():
-    if not request.json:
-        abort(400)
-    
     result = main()
     return result
 
