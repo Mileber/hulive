@@ -163,7 +163,7 @@ def get_user():
         return jsonify({'ret':ret})
 
 # 根据stream_key查询用户
-@app.route('/liveUser/userQueryByKey', methods=['POST'])
+@app.route('/liveUser/userQueryByKey/', methods=['POST'])
 def get_user_by_key():
     if not request.json:
         abort(400)
@@ -188,7 +188,7 @@ def get_user_by_key():
         return jsonify({'ret':ret})
 
 # 根据name查询用户
-@app.route('/liveUser/userQueryByName', methods=['POST'])
+@app.route('/liveUser/userQueryByName/', methods=['POST'])
 def get_user_by_name():
     if not request.json:
         abort(400)

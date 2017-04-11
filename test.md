@@ -1,7 +1,7 @@
 # 用户相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userInsert/' -d '{"id":"0", "name":"HongkongTv", "password":"hk", "stream_key":"0", "phone":"0"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userInsert/' -d '{ "name":"HongkongTv4", "password":"hk", "stream_key":"3", "phone":"3"}'
 
 2. 查询
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userQuery/' -d '{ "id":2}'
@@ -23,11 +23,14 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/strea
 
 # follow表相关
 
-1. 查询关注列表及人数
+1. 查询关注列表
 curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getFollowList/' -d '{ "user_id":8}'
 
 2. 新增关注
 curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/insertFollow/' -d '{ "from_id":8, "to_id":9}'
+
+3. 查询关注数
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getFollowNum/' -d '{ "user_id":8}'
 
 # 直播流相关
 
