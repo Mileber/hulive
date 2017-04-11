@@ -866,7 +866,7 @@ def main():
 @app.route('/huli/getLiveCount/', methods=['GET'])
 def get_live_count():
     result = main()
-    return result
+    return result.to_string()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
