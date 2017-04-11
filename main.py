@@ -436,10 +436,11 @@ def get_follow_num():
 def get_follow_list():
     if not request.json:
         abort(400)
-    
+
     user_id = request.json['user_id']
     follow_list = Follow.query.filter_by(from_user_id = user_id).all()
 
+    '''
     if follow_list == None:
         ret = {
             'code' : 501,
@@ -447,7 +448,8 @@ def get_follow_list():
         }
         return jsonify({'ret':ret})
     else:
-        return jsonify(follows=[e.serialize() for e in follow_list])
+        '''
+    return jsonify(follows=[e.serialize() for e in follow_list])
 
 # 查询粉丝数
 # 参数：user_id
