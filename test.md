@@ -9,6 +9,9 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userQ
 3. 更新用户
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userUpdate/' -d '{"id":1, "name":"hhhhh", "password":"123456", "stream_key":"15021057217", "phone":"15021057217"}'
 
+4. 模糊查询
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userQueryLike/' -d '{"word":"e"}'
+
 # 直播表相关
 
 1. 插入

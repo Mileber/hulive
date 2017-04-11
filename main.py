@@ -387,7 +387,7 @@ def update_stream():
         }
         return jsonify({'ret':ret})
     else:
-        live = Stream(get_live['stream_key'], get_live['title'], get_live['level'])
+        session.query(Stream).filter(stream_key=get_live['stream_key']).update({'title' : get_live['title'],'level' : get_live['level']})
         db.session.commit()
         ret = {
             'code' : 101,
