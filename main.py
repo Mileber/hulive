@@ -437,6 +437,7 @@ def get_follow_num():
     ret = {
         'code' : 101,
         'msg' : 'follow num query success',
+        'to_id' : user_id,
         'num' : follow_num
     }
     return jsonify({'ret':ret})
