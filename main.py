@@ -218,7 +218,7 @@ def get_user_like():
     if not request.json:
         abort(400)
     get_word = request.json['word']
-    result = User.query.filter_by(User.name.ilike('%'+get_word+'%')).all()
+    result = User.query.filter(User.name.ilike('%'+get_word+'%')).all()
 
     if result == None:
         ret = {
