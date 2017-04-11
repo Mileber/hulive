@@ -73,7 +73,7 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/enableStream/' -d '{ "key":"15021057217"}'
 
 13. 查询直播实时信息
-curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/getLiveStatus/' -d '{ "key":"15021057217"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/huli/getLiveStatus/' -d '{ "key":"15021057217_hulive"}'
 
 14. 保存直播回放
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/Save/' -d '{ "key":"15021057217"}'

@@ -772,7 +772,7 @@ def get_live_status():
     key = request.json['key']
     stream = hub.get(key)
     live_status = stream.status()
-    return live_status.to_json()
+    return live_status
 
 # 14.保存直播回放
 # 参数：key
