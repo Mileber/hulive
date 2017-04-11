@@ -863,7 +863,7 @@ def main():
    data=getHTTPHeader( url=url.replace("hubname",HUb), header=myheader)
    print data.read()
 
-@app.route('/huli/getLiveCount/', methods=['POST'])
+@app.route('/huli/getLiveCount/', methods=['GET'])
 def get_live_count():
     if not request.json:
         abort(400)

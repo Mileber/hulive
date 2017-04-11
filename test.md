@@ -83,3 +83,6 @@ curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/
 
 *16. 开始*
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/huli/start/' -d '{ "key":"15021057217"}'
+
+# 观看人数
+http://pearapple.net:8001/huli/getLiveCount/
