@@ -33,17 +33,13 @@ class User(db.Model):
     #is_up = db.Column(db.Boolean, nullable=False)
     #avatar_path = db.Column(db.String(50))
 
-    # def __init__(self, id, name, password, stream_key, phone):
-        # self.id = id
-        # self.name = name
-        # self.password = password
-        # self.stream_key = stream_key
-        # self.phone = phone
-        #self.is_up = is_up
-        #self.avatar_path = avatar_path
-    
-    def __repr__(self):
-        return '{"id":%d, "name":%s}' % (self.id, self.name)
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'stream_key': self.stream_key,
+            'phone' : self.phone
+        }
 
 class Stream(db.Model):
     stream_key = db.Column(db.String(50), primary_key=True)
@@ -55,8 +51,12 @@ class Stream(db.Model):
         self.title = title
         self.level = level
 
-    def __repr__(self):
-        return '{"stream_key":%s, "title":%s, "level":%d}' % (self.stream_key, self.title, self.level)
+    def serialize(self):
+        return {
+            'stream_key': self.stream_key,
+            'title' : self.title,
+            'level' : self.level
+        }
 
 class Follow(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -211,6 +211,23 @@ def get_user_by_name():
             'phone' : result.phone
         }
         return jsonify({'ret':ret})
+
+# 模糊查询用户
+@app.route('/liveUser/userQueryLike/', methods=['POST'])
+def get_user_like():
+    if not request.json:
+        abort(400)
+    get_word = request.json['word']
+    result = User.query.filter_by(User.name.ilike('%'+get_word+'%')).all()
+
+    if result == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'follow list not found'
+        }
+        return jsonify({'ret':ret})
+    else:
+        return jsonify(users=[e.serialize() for e in result])
 
 # 更新用户(只允许更新 name, phone)
 @app.route('/liveUser/userUpdate/', methods=['POST'])
