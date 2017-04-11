@@ -865,8 +865,11 @@ def main():
 
 @app.route('/huli/getLiveCount/', methods=['GET'])
 def get_live_count():
-    result = main()
-    return result.to_string()
+    url="http://pili.qiniuapi.com/v2/hubs/hubname/stat/play"
+    AUTH=MACToken(AK=AK,SK=SK,URL=url.replace("hubname",HUb),Conetnt="Content-Type: application/json",Methon="GET")
+    myheader = {"Authorization": str(AUTH), "User-Agent": "Python-urllib/2.7", "Content-Type": "application/json"}
+    data=getHTTPHeader( url=url.replace("hubname",HUb), header=myheader)
+    return data.read()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
