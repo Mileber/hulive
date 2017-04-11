@@ -305,6 +305,7 @@ def login():
                 'id' : get.id,
                 'name' : get.name,
                 'stream_key' : get.stream_key,
+                'password' : get.password,
                 'phone' : get.phone
             }
             return jsonify({'ret':ret})
