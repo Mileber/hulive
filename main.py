@@ -416,19 +416,12 @@ def get_follow_num():
     user_id = request.json['user_id']
     follow_num = Follow.query.filter_by(from_user_id = user_id).count()
 
-    if follow_list == None:
-        ret = {
-            'code' : 501,
-            'msg' : 'follow list not found'
-        }
-        return jsonify({'ret':ret})
-    else:
-        ret = {
-            'code' : 101,
-            'msg' : 'follow num query success',
-            'num' : follow_num
-        }
-        return jsonify({'ret':ret})
+    ret = {
+        'code' : 101,
+        'msg' : 'follow num query success',
+        'num' : follow_num
+    }
+    return jsonify({'ret':ret})
 
 # 查询关注列表
 # 参数：user_id
@@ -440,7 +433,6 @@ def get_follow_list():
     user_id = request.json['user_id']
     follow_list = Follow.query.filter_by(from_user_id = user_id).all()
 
-    '''
     if follow_list == None:
         ret = {
             'code' : 501,
@@ -448,8 +440,7 @@ def get_follow_list():
         }
         return jsonify({'ret':ret})
     else:
-        '''
-    return jsonify(follows=[e.serialize() for e in follow_list])
+        return jsonify(follows=[e.serialize() for e in follow_list])
 
 # 查询粉丝数
 # 参数：user_id
@@ -461,19 +452,12 @@ def get_fans_num():
     user_id = request.json['user_id']
     fans_num = Follow.query.filter_by(to_user_id = user_id).count()
 
-    if follow_list == None:
-        ret = {
-            'code' : 501,
-            'msg' : 'fan list not found'
-        }
-        return jsonify({'ret':ret})
-    else:
-        ret = {
-            'code' : 101,
-            'msg' : 'fan num query success',
-            'num' : fans_num
-        }
-        return jsonify({'ret':ret})
+    ret = {
+        'code' : 101,
+        'msg' : 'fan num query success',
+        'num' : fans_num
+    }
+    return jsonify({'ret':ret})
 
 # 查询粉丝列表
 # 参数：user_id
