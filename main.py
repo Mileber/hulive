@@ -874,7 +874,13 @@ def get_live_count():
 # 用于直播状态回调
 @app.route('/huli/onLiveStatusChange', methods=['POST'])
 def on_live_status_change():
+    if not request.json:
+        abort(400)
     
+    message = request.json["message"]
+    update_time = request.json['updatedAt']
+    data = request.json['data']
+    return data
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
