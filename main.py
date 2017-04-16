@@ -897,6 +897,7 @@ def on_live_status_change():
             'code' : 501,
             'msg' : 'stream key error'
         }
+        print ret
         return jsonify({'ret':ret})
     else:
         db.session.query(Stream).filter(Stream.stream_key==key).update({'status' : status})
@@ -907,9 +908,8 @@ def on_live_status_change():
             'stream_key' : key,
             'status' : status
         }
+        print ret
         return jsonify({'ret':ret})
-
-    return request.json
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
