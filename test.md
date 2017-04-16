@@ -1,7 +1,7 @@
 # 用户相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userInsert/' -d '{ "name":"HongkongTv4", "password":"hk", "stream_key":"3", "phone":"3"}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveUser/userInsert/' -d '{ "name":"中文", "password":"hk", "stream_key":"chinese", "phone":"4"}'
 
 2. 查询
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/userQuery/' -d '{ "id":2}'
@@ -15,10 +15,10 @@ curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/l
 # 直播表相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamInsert/' -d '{"stream_key":"15021057217", "title":"hhhh", "level":1}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamInsert/' -d '{"stream_key":"15021057217_hulive", "title":"hhhh", "level":1}'
 
 2. 更新
-curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/streamUpdate/' -d '{"stream_key":"15021057217", "title":"233333", "level":1}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamUpdate/' -d '{"stream_key":"15021057217_hulive", "title":"233333", "level":1}'
 curl -i -H "Content-Type: application/json" -X POST 'http://localhost:5000/streamUpdate/' -d '{"stream_key":"15021057217", "title":"233333", "level":5}'
 
 3. 查询

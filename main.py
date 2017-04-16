@@ -871,5 +871,10 @@ def get_live_count():
     data=getHTTPHeader( url=url.replace("hubname",HUb), header=myheader)
     return data.read()
 
+# 用于直播状态回调
+@app.route('/huli/onLiveStatusChange', methods=['POST'])
+def on_live_status_change():
+    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
