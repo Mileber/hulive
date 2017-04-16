@@ -51,17 +51,14 @@ class Stream(db.Model):
     stream_key = db.Column(db.String(50), primary_key=True)
     title = db.Column(db.String(50))
     level = db.Column(db.Integer, nullable=False)
-
-    def __init__(self, stream_key, title, level):
-        self.stream_key = stream_key
-        self.title = title
-        self.level = level
+    status = db.Column(db.Boolean, nullable=False)
 
     def serialize(self):
         return {
             'stream_key': self.stream_key,
             'title' : self.title,
-            'level' : self.level
+            'level' : self.level,
+            'status' : self.status
         }
 
 class Follow(db.Model):
@@ -82,7 +79,7 @@ class Gift(db.Model):
     value = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return '%s, %s' % (self.name, self.value)
+        return '%s, %s' % (self.name, self.value)    
 
 db.create_all()
 
@@ -351,7 +348,11 @@ def insert_stream():
         'level' : request.json['level']
     }
 
-    live = Stream(live_info['stream_key'], live_info['title'], live_info['level'])
+    live = Stream()
+    live.stream_key = live_info['stream_key']
+    live.title = live_info['title']
+    live.level = live_info['level']
+    live.status = False
 
     db.session.add(live)
     db.session.commit()
@@ -369,7 +370,8 @@ def insert_stream():
             'msg' : 'insert success',
             'stream_key' : query_stream.stream_key,
             'title' : query_stream.title,
-            'level' : query_stream.level
+            'level' : query_stream.level,
+            'status' : query_stream.status
         }
         return jsonify({'ret':ret})
 
@@ -424,7 +426,8 @@ def get_live_info():
             'msg' : 'query stream info success',
             'stream_key' : get.stream_key,
             'title' : get.title,
-            'level' : get.level
+            'level' : get.level,
+            'status' : get.status
         }
     return jsonify({
         'ret' : ret
@@ -880,7 +883,33 @@ def on_live_status_change():
     message = request.json["message"]
     update_time = request.json['updatedAt']
     data = request.json['data']
-    return data
+
+    # data 只一条数据时
+    id = data['id']
+    url = data['url']
+    status = data['status']
+
+    key = id[8:]
+
+    stream_query = Stream.query.filter_by(stream_key=key).first()
+    if stream_query == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'stream key error'
+        }
+        return jsonify({'ret':ret})
+    else:
+        db.session.query(Stream).filter(Stream.stream_key==key).update({'status' : status})
+        db.session.commit()
+        ret = {
+            'code' : 101,
+            'msg' : 'change stream info success',
+            'stream_key' : key,
+            'status' : status
+        }
+        return jsonify({'ret':ret})
+
+    return request.json
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
