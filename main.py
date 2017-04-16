@@ -28,7 +28,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app，use_native_unicode="utf8")
+db = SQLAlchemy(app, use_native_unicode="utf8")
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
