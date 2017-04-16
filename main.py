@@ -890,7 +890,8 @@ def on_live_status_change():
     status = data['status']
 
     key = id[8:]
-
+    print request.json
+    print key
     stream_query = Stream.query.filter_by(stream_key=key).first()
     if stream_query == None:
         ret = {
