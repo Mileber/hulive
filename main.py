@@ -892,6 +892,7 @@ def on_live_status_change():
     key = id[9:]
     #print request.json
     #print key
+    '''
     stream_query = Stream.query.filter_by(stream_key=key).first()
     if stream_query == None:
         ret = {
@@ -911,6 +912,8 @@ def on_live_status_change():
         }
         print ret
         return jsonify({'ret':ret})
+        '''
+    return ""
 
 # 更新直播状态
 @app.route('/liveInfo/statusUpdate/', methods=['POST'])
