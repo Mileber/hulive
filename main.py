@@ -912,5 +912,33 @@ def on_live_status_change():
         print ret
         return jsonify({'ret':ret})
 
+# 更新直播状态
+@app.route('/liveInfo/statusUpdate/', methods=['POST'])
+def update_status():
+    if not request.json:
+        abort(400)
+    
+    key = request.json["stream_key"]
+    status = request.json["status"]
+
+    stream_query = Stream.query.filter_by(stream_key=key).first()
+    if stream_query == None:
+        ret = {
+            'code' : 501,
+            'msg' : 'stream key error'
+        }
+        return jsonify({'ret':ret})
+    else:
+        db.session.query(Stream).filter(Stream.stream_key==key).update({'status' : status})
+        db.session.commit()
+        ret = {
+            'code' : 101,
+            'msg' : 'change stream info success',
+            'stream_key' : key,
+            'status' : status
+        }
+        print ret
+        return jsonify({'ret':ret})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
