@@ -589,10 +589,7 @@ def delete_follow():
         }
         return jsonify({'ret':ret})
     else:
-        follow_item = Follow()
-        follow_item.from_user_id = get["from_id"]
-        follow_item.to_user_id = get["to_id"]
-        db.session.delete(follow_item)
+        db.session.delete(query_follow)
         db.session.commit()
         query_follow_new = Follow.query.filter_by(from_user_id=get['from_id'], to_user_id=get['to_id']).first()
         if query_follow_new == None:
