@@ -52,13 +52,15 @@ class Stream(db.Model):
     title = db.Column(db.String(50))
     level = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Boolean, nullable=False)
+    port = db.Column(db.Boolean, nullable=False)
 
     def serialize(self):
         return {
             'stream_key': self.stream_key,
             'title' : self.title,
             'level' : self.level,
-            'status' : self.status
+            'status' : self.status,
+            'port' : self.port
         }
 
 class Follow(db.Model):
@@ -353,6 +355,7 @@ def insert_stream():
     live.title = live_info['title']
     live.level = live_info['level']
     live.status = False
+    live.port = True
 
     db.session.add(live)
     db.session.commit()
@@ -371,7 +374,8 @@ def insert_stream():
             'stream_key' : query_stream.stream_key,
             'title' : query_stream.title,
             'level' : query_stream.level,
-            'status' : query_stream.status
+            'status' : query_stream.status,
+            'port' : query_stream.port
         }
         return jsonify({'ret':ret})
 
@@ -427,7 +431,8 @@ def get_live_info():
             'stream_key' : get.stream_key,
             'title' : get.title,
             'level' : get.level,
-            'status' : get.status
+            'status' : get.status,
+            'port' : get.port
         }
     return jsonify({
         'ret' : ret
@@ -920,6 +925,7 @@ def update_status():
     
     key = request.json["stream_key"]
     status = request.json["status"]
+    port = request.json["port"]
 
     stream_query = Stream.query.filter_by(stream_key=key).first()
     if stream_query == None:
@@ -929,13 +935,14 @@ def update_status():
         }
         return jsonify({'ret':ret})
     else:
-        db.session.query(Stream).filter(Stream.stream_key==key).update({'status' : status})
+        db.session.query(Stream).filter(Stream.stream_key==key).update({'status' : status, 'port' : port})
         db.session.commit()
         ret = {
             'code' : 101,
             'msg' : 'change stream info success',
             'stream_key' : key,
-            'status' : status
+            'status' : status,
+            'port' : port
         }
         print ret
         return jsonify({'ret':ret})
