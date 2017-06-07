@@ -90,7 +90,6 @@ def hello_world():
     return 'Hello World'
 
 # 插入新用户
-# TODO:头像
 @app.route('/liveUser/userInsert/', methods=['POST'])
 def insert_user():
     if not request.json:
@@ -377,6 +376,7 @@ def insert_stream():
             'status' : query_stream.status,
             'port' : query_stream.port
         }
+        hub.create(query_stream.stream_key)
         return jsonify({'ret':ret})
 
 # 更新
@@ -415,7 +415,7 @@ def update_stream():
 def get_live_info():
     if not request.json:
         return "failed", 400
-    
+
     stream_query = request.json['stream_key']
     get = Stream.query.filter_by(stream_key = stream_query).first()
 

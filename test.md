@@ -15,7 +15,7 @@ curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/l
 # 直播表相关
 
 1. 插入
-curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamInsert/' -d '{"stream_key":"17621194516_hulive", "title":"hhhh", "level":1}'
+curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamInsert/' -d '{"stream_key":"18702177378_hulive", "title":"hhhh", "level":1}'
 
 2. 更新
 curl -i -H "Content-Type: application/json" -X POST 'http://pearapple.net:8001/liveInfo/streamUpdate/' -d '{"stream_key":"15021057217_hulive", "title":"233333", "level":1}'
